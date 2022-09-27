@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace KnpLabs\JsonSchema\Scalar;
+namespace Knp\JsonSchema\Scalar;
 
-use KnpLabs\JsonSchema\JsonSchema;
+use Knp\JsonSchema\JsonSchema;
 
 /**
  * @extends JsonSchema<string>

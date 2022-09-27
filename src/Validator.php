@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace KnpLabs\JsonSchema;
+namespace Knp\JsonSchema;
 
-use KnpLabs\JsonSchema\Validator\Errors;
+use Knp\JsonSchema\Validator\Errors;
 
 interface Validator
 {

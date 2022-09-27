@@ -5,12 +5,12 @@
     "license": "MIT",
     "autoload": {
         "psr-4": {
-            "Knplabs\\JsonSchema\\": "src/"
+            "Knp\\JsonSchema\\": "src/"
         }
     },
     "authors": [
         {
-            "name": "KnpLabs",
+            "name": "Knp Labs",
             "email": "hello@knplabs.com"
         }
     ],

@@ -7,23 +7,23 @@ A PHP implementation of [JSON Schema](http://json-schema.org/). This library all
 Install the latest version with
 
 ```bash
-$ composer require knplabs/php-json-schema
+$ composer require Knp/php-json-schema
 ```
 
 # Basic Usage
 
-A JsonSchema must implements `KnpLabs\JsonSchema\JsonSchemaInterface` (which is basically an alias for `JsonSerializable`).
+A JsonSchema must implements `Knp\JsonSchema\JsonSchemaInterface` (which is basically an alias for `JsonSerializable`).
 
 ## Default JsonSchema
 
-There is already a default implementation of `JsonSchemaInterface` called `KnpLabs\JsonSchema\JsonSchema` which is an abstract class. This class provides some static methods to create some common JSON Schema scalars or objects.
+There is already a default implementation of `JsonSchemaInterface` called `Knp\JsonSchema\JsonSchema` which is an abstract class. This class provides some static methods to create some common JSON Schema scalars or objects.
 
 ## Scalars
 
 ### `JsonSchema::string()`
 
 ```php
-use KnpLabs\JsonSchema\JsonSchema;
+use Knp\JsonSchema\JsonSchema;
 
 $schema = JsonSchema::create(
     'firstName',                       // The name of the property
@@ -36,7 +36,7 @@ $schema = JsonSchema::create(
 ### `JsonSchema::text()`
 
 ```php
-use KnpLabs\JsonSchema\JsonSchema;
+use Knp\JsonSchema\JsonSchema;
 
 $schema = JsonSchema::create(
     'content',                    // The name of the property
@@ -49,7 +49,7 @@ $schema = JsonSchema::create(
 ### `JsonSchema::integer()`
 
 ```php
-use KnpLabs\JsonSchema\JsonSchema;
+use Knp\JsonSchema\JsonSchema;
 
 $schema = JsonSchema::create(
     'age',                            // The name of the property
@@ -62,7 +62,7 @@ $schema = JsonSchema::create(
 ### `JsonSchema::positiveInteger()`
 
 ```php
-use KnpLabs\JsonSchema\JsonSchema;
+use Knp\JsonSchema\JsonSchema;
 
 $schema = JsonSchema::create(
     'age',                            // The name of the property
@@ -75,7 +75,7 @@ $schema = JsonSchema::create(
 ### `JsonSchema::number()`
 
 ```php
-use KnpLabs\JsonSchema\JsonSchema;
+use Knp\JsonSchema\JsonSchema;
 
 $schema = JsonSchema::create(
     'price',                // The name of the property
@@ -88,7 +88,7 @@ $schema = JsonSchema::create(
 ### `JsonSchema::boolean()`
 
 ```php
-use KnpLabs\JsonSchema\JsonSchema;
+use Knp\JsonSchema\JsonSchema;
 
 $schema = JsonSchema::create(
     'isAdult',                      // The name of the property
@@ -101,7 +101,7 @@ $schema = JsonSchema::create(
 ### `JsonSchema::date()`
 
 ```php
-use KnpLabs\JsonSchema\JsonSchema;
+use Knp\JsonSchema\JsonSchema;
 
 $schema = JsonSchema::create(
     'createdAt',                    // The name of the property
@@ -114,14 +114,14 @@ $schema = JsonSchema::create(
 ## Enum
 
 Enum is a special type of scalar which is a list of possible values.
-They can be created by extending the `KnpLabs\JsonSchema\EnumSchema`:
+They can be created by extending the `Knp\JsonSchema\EnumSchema`:
 
 ```php
 <?php
 
 namespace Acme;
 
-use KnpLabs\JsonSchema\EnumSchema;
+use Knp\JsonSchema\EnumSchema;
 
 class RoleEnum extends EnumSchema
 {
@@ -148,14 +148,14 @@ class RoleEnum extends EnumSchema
 
 ## Objects
 
-You can create objects schema by extending the `KnpLabs\JsonSchema\ObjectSchema` class:
+You can create objects schema by extending the `Knp\JsonSchema\ObjectSchema` class:
 
 ```php
 <?php
 
 namespace Acme;
 
-use KnpLabs\JsonSchema\ObjectSchema;
+use Knp\JsonSchema\ObjectSchema;
 
 class PersonSchema extends ObjectSchema
 {
@@ -188,14 +188,14 @@ class PersonSchema extends ObjectSchema
 
 ## Collections
 
-You can create collections schema by extending the `KnpLabs\JsonSchema\CollectionSchema` class:
+You can create collections schema by extending the `Knp\JsonSchema\CollectionSchema` class:
 
 ```php
 <?php
 
 namespace Acme;
 
-use KnpLabs\JsonSchema\CollectionSchema;
+use Knp\JsonSchema\CollectionSchema;
 
 class PersonCollectionSchema extends CollectionSchema
 {
