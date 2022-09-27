@@ -4,12 +4,10 @@ declare(strict_types=1);
 
 namespace KnpLabs\JsonSchema;
 
-use JsonSerializable;
-
 /**
  * @template T of mixed
  */
-abstract class JsonSchema implements JsonSerializable
+abstract class JsonSchema implements JsonSchemaInterface
 {
     /**
      * @param JsonSchema<E> $schema
@@ -44,7 +42,7 @@ abstract class JsonSchema implements JsonSerializable
             /**
              * @var iterable<int, E>
              */
-            private readonly iterable $examples;
+            private iterable $examples;
 
             /**
              * @param iterable<int, E>     $examples
@@ -77,7 +75,7 @@ abstract class JsonSchema implements JsonSerializable
                 yield from $this->examples;
             }
 
-            protected function getSchema(): array
+            public function getSchema(): array
             {
                 return $this->schema;
             }

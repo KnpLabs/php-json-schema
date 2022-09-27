@@ -1,5 +1,5 @@
 {
-    "name": "knplabs/json-schema",
+    "name": "knplabs/php-json-schema",
     "description": "PHP json-schema implementation",
     "type": "library",
     "license": "MIT",
