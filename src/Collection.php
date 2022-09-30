@@ -9,20 +9,20 @@ use Exception;
 final class Collection
 {
     /**
-     * @param iterable<JsonSchema<mixed>> $schemas
+     * @param iterable<JsonSchemaInterface<mixed>> $schemas
      */
     public function __construct(private iterable $schemas)
     {
     }
 
     /**
-     * @template J of JsonSchema
+     * @template J of JsonSchemaInterface
      *
      * @param class-string<J> $schemaClassName
      *
      * @return J
      */
-    public function get(string $schemaClassName): JsonSchema
+    public function get(string $schemaClassName): JsonSchemaInterface
     {
         foreach ($this->schemas as $schema) {
             if (is_a($schema, $schemaClassName)) {
