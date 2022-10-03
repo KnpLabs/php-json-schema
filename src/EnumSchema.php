@@ -15,7 +15,7 @@ abstract class EnumSchema extends JsonSchema
         return $this->getEnum();
     }
 
-    protected function getSchema(): array
+    public function getSchema(): array
     {
         return [
             'enum' => [...$this->getEnum()],

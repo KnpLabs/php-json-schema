@@ -50,7 +50,7 @@ abstract class CollectionSchema extends JsonSchema
         return null;
     }
 
-    protected function getSchema(): array
+    public function getSchema(): array
     {
         $schema = [
             'type' => 'array',

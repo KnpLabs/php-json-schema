@@ -59,7 +59,7 @@ abstract class ObjectSchema extends JsonSchema
         }
     }
 
-    protected function getSchema(): array
+    public function getSchema(): array
     {
         return [
             'type' => 'object',
