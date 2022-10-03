@@ -6,20 +6,50 @@ namespace Knp\JsonSchema;
 
 /**
  * @template T of mixed
+ *
+ * @implements JsonSchemaInterface<T>
  */
-abstract class JsonSchema implements JsonSchemaInterface
+class JsonSchema implements JsonSchemaInterface
 {
+    private function __construct(
+        protected readonly string $title,
+        protected readonly string $description,
+        protected readonly iterable $examples,
+        protected readonly array $schema
+    ) {
+    }
+
+    public function getTitle(): string
+    {
+        return $this->title;
+    }
+
+    public function getDescription(): string
+    {
+        return $this->description;
+    }
+
+    public function getExamples(): iterable
+    {
+        yield from $this->examples;
+    }
+
+    public function getSchema(): array
+    {
+        return $this->schema;
+    }
+
     /**
-     * @param JsonSchema<E> $schema
      * @template E of mixed
+     * @param JsonSchemaInterface<E> $schema
      *
      * @return JsonSchema<null|E>
      */
-    public static function nullable(self $schema): self
+    public static function nullable(JsonSchemaInterface $schema): self
     {
         return self::create(
-            '',
-            '',
+            sprintf('Nullable<%s>', $schema->getTitle()),
+            $schema->getDescription(),
             [...$schema->getExamples(), null],
             ['oneOf' => [self::null(), $schema->jsonSerialize()]],
         );
@@ -36,64 +66,23 @@ abstract class JsonSchema implements JsonSchemaInterface
         string $title,
         string $description,
         iterable $examples,
-        $schema
+        array $schema
     ): self {
-        return new class($title, $description, $examples, $schema) extends JsonSchema {
-            /**
-             * @var iterable<int, E>
-             */
-            private iterable $examples;
-
-            /**
-             * @param iterable<int, E>     $examples
-             * @param array<string, mixed> $schema
-             */
-            public function __construct(
-                private string $title,
-                private string $description,
-                iterable $examples,
-                private $schema
-            ) {
-                $this->examples = [...$examples];
-            }
-
-            public function getTitle(): string
-            {
-                return $this->title;
-            }
-
-            public function getDescription(): string
-            {
-                return $this->description;
-            }
-
-            /**
-             * @return iterable<int, E>
-             */
-            public function getExamples(): iterable
-            {
-                yield from $this->examples;
-            }
-
-            public function getSchema(): array
-            {
-                return $this->schema;
-            }
-        };
+        return new self($title, $description, $examples, $schema);
     }
 
     /**
      * @template I
      *
-     * @param JsonSchema<I> $jsonSchema
+     * @param JsonSchemaInterface<I> $jsonSchema
      *
      * @return JsonSchema<array<int, I>>
      */
-    public static function collection(self $jsonSchema): self
+    public static function collection(JsonSchemaInterface $jsonSchema): self
     {
         return self::create(
             sprintf('Collection<%s>', $jsonSchema->getTitle()),
-            '',
+            $jsonSchema->getDescription(),
             [[...$jsonSchema->getExamples()]],
             [
                 'type' => 'array',
@@ -103,9 +92,9 @@ abstract class JsonSchema implements JsonSchemaInterface
     }
 
     /**
-     * @return array<string, mixed>&array{title: string, description: string, examples: array<T>}
+     * {@inheritdoc}
      */
-    public function jsonSerialize(): mixed
+    public function jsonSerialize(): array
     {
         $schema = $this->getSchema();
 
@@ -120,21 +109,6 @@ abstract class JsonSchema implements JsonSchemaInterface
                 'examples' => [...$this->getExamples()],
             ],
         );
-    }
-
-    /**
-     * @return iterable<int, T>
-     */
-    abstract public function getExamples(): iterable;
-
-    public function getTitle(): string
-    {
-        return '';
-    }
-
-    public function getDescription(): string
-    {
-        return '';
     }
 
     /**
@@ -250,9 +224,4 @@ abstract class JsonSchema implements JsonSchemaInterface
             'oneOf' => $schemas,
         ];
     }
-
-    /**
-     * @return array<string, mixed>
-     */
-    abstract protected function getSchema(): array;
 }

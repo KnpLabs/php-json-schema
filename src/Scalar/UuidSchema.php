@@ -34,7 +34,7 @@ final class UuidSchema extends JsonSchema
     /**
      * {@inheritDoc}
      */
-    protected function getSchema(): array
+    public function getSchema(): array
     {
         return array_merge(
             self::string(),

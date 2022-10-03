@@ -6,6 +6,27 @@ namespace Knp\JsonSchema;
 
 use JsonSerializable;
 
+/**
+ * @template T of mixed
+ */
 interface JsonSchemaInterface extends JsonSerializable
 {
+    /**
+     * @return array<string, mixed>&array{title: string, description: string, examples: array<T>}
+     */
+    public function jsonSerialize(): array;
+
+    public function getTitle(): string;
+
+    public function getDescription(): string;
+
+    /**
+     * @return iterable<int, T>
+     */
+    public function getExamples(): iterable;
+
+    /**
+     * @return array<string, mixed>
+     */
+    public function getSchema(): array;
 }
