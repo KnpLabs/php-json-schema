@@ -8,7 +8,7 @@ namespace Knp\JsonSchema;
  * @template T of array<string, mixed>
  * @extends JsonSchema<T>
  */
-abstract class ObjectSchema extends JsonSchema
+abstract class ObjectSchema implements JsonSchemaInterface
 {
     /**
      * @var array<string, JsonSchema<mixed>>

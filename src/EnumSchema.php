@@ -8,8 +8,13 @@ namespace Knp\JsonSchema;
  * @template E
  * @extends JsonSchema<E>
  */
-abstract class EnumSchema extends JsonSchema
+abstract class EnumSchema implements JsonSchemaInterface
 {
+    /**
+     * @return iterable<int, E>
+     */
+    abstract protected function getEnum(): iterable;
+
     public function getExamples(): iterable
     {
         return $this->getEnum();
@@ -23,7 +28,22 @@ abstract class EnumSchema extends JsonSchema
     }
 
     /**
-     * @return iterable<int, E>
+     * {@inheritdoc}
      */
-    abstract protected function getEnum(): iterable;
+    public function jsonSerialize(): array
+    {
+        $schema = $this->getSchema();
+
+        /**
+         * @var array<string, mixed>&array{title: string, description: string, examples: array<T>}
+         */
+        return array_merge(
+            $schema,
+            [
+                'title' => $this->getTitle(),
+                'description' => $this->getDescription(),
+                'examples' => [...$this->getExamples()],
+            ],
+        );
+    }
 }

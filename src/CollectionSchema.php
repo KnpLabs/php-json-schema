@@ -11,7 +11,7 @@ namespace Knp\JsonSchema;
  *
  * @extends JsonSchema<CollectionSchemaData>
  */
-abstract class CollectionSchema extends JsonSchema
+abstract class CollectionSchema implements JsonSchemaInterface
 {
     /**
      * @param JsonSchema<I> $itemSchema
@@ -28,6 +28,11 @@ abstract class CollectionSchema extends JsonSchema
     public function getTitle(): string
     {
         return sprintf('Collection<%s>', $this->itemSchema->getTitle());
+    }
+
+    public function getDescription(): string
+    {
+        return sprintf('Collection of %s', $this->itemSchema->getDescription());
     }
 
     protected function getUniqueItems(): ?bool
@@ -70,5 +75,25 @@ abstract class CollectionSchema extends JsonSchema
         }
 
         return $schema;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function jsonSerialize(): array
+    {
+        $schema = $this->getSchema();
+
+        /**
+         * @var array<string, mixed>&array{title: string, description: string, examples: array<T>}
+         */
+        return array_merge(
+            $schema,
+            [
+                'title' => $this->getTitle(),
+                'description' => $this->getDescription(),
+                'examples' => [...$this->getExamples()],
+            ],
+        );
     }
 }
