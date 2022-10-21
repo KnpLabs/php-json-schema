@@ -68,4 +68,24 @@ abstract class ObjectSchema implements JsonSchemaInterface
             'required' => $this->required,
         ];
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function jsonSerialize(): array
+    {
+        $schema = $this->getSchema();
+
+        /**
+         * @var array<string, mixed>&array{title: string, description: string, examples: array<T>}
+         */
+        return array_merge(
+            $schema,
+            [
+                'title' => $this->getTitle(),
+                'description' => $this->getDescription(),
+                'examples' => [...$this->getExamples()],
+            ],
+        );
+    }
 }
