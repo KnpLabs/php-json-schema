@@ -9,10 +9,10 @@ use Knp\JsonSchema\Validator\Errors;
 interface Validator
 {
     /**
-     * @template T
+     * @template T of array<array-key, mixed>
      *
-     * @param T                                         $data
-     * @param class-string<JsonSchema<T>>|JsonSchema<T> $schema
+     * @param array<array-key, mixed> $data
+     * @param JsonSchemaInterface<T> $schema
      */
-    public function validate($data, $schema): ?Errors;
+    public function validate(array $data, JsonSchemaInterface $schema): ?Errors;
 }

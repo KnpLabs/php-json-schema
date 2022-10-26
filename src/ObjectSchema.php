@@ -5,13 +5,14 @@ declare(strict_types=1);
 namespace Knp\JsonSchema;
 
 /**
- * @template T of array<string, mixed>
- * @extends JsonSchema<T>
+ * @template T
+ *
+ * @implements JsonSchemaInterface<T>
  */
-abstract class ObjectSchema extends JsonSchema
+abstract class ObjectSchema implements JsonSchemaInterface
 {
     /**
-     * @var array<string, JsonSchema<mixed>>
+     * @var array<string, JsonSchemaInterface<mixed>>
      */
     private array $properties = [];
 
@@ -44,11 +45,11 @@ abstract class ObjectSchema extends JsonSchema
     }
 
     /**
-     * @template S
+     * @psalm-template S
      *
-     * @param JsonSchema<S> $schema
+     * @psalm-param JsonSchemaInterface<S> $schema
      */
-    protected function addProperty(string $name, JsonSchema $schema, bool $required = true): void
+    protected function addProperty(string $name, JsonSchemaInterface $schema, bool $required = true): void
     {
         $this->properties[$name] = $schema;
 
@@ -59,7 +60,7 @@ abstract class ObjectSchema extends JsonSchema
         }
     }
 
-    protected function getSchema(): array
+    public function getSchema(): array
     {
         return [
             'type' => 'object',
@@ -67,5 +68,25 @@ abstract class ObjectSchema extends JsonSchema
             'properties' => $this->properties,
             'required' => $this->required,
         ];
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function jsonSerialize(): array
+    {
+        $schema = $this->getSchema();
+
+        /**
+         * @var array<string, mixed>&array{title: string, description: string, examples: array<T>}
+         */
+        return array_merge(
+            $schema,
+            [
+                'title' => $this->getTitle(),
+                'description' => $this->getDescription(),
+                'examples' => [...$this->getExamples()],
+            ],
+        );
     }
 }

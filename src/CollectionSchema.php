@@ -7,16 +7,16 @@ namespace Knp\JsonSchema;
 /**
  * @template I
  *
- * @phpstan-type CollectionSchemaData array<I>
+ * @type CollectionSchemaData array<I>
  *
- * @extends JsonSchema<CollectionSchemaData>
+ * @implements JsonSchemaInterface<CollectionSchemaData>
  */
-abstract class CollectionSchema extends JsonSchema
+abstract class CollectionSchema implements JsonSchemaInterface
 {
     /**
-     * @param JsonSchema<I> $itemSchema
+     * @psalm-param JsonSchemaInterface<I> $itemSchema
      */
-    public function __construct(private JsonSchema $itemSchema)
+    public function __construct(private JsonSchemaInterface $itemSchema)
     {
     }
 
@@ -28,6 +28,11 @@ abstract class CollectionSchema extends JsonSchema
     public function getTitle(): string
     {
         return sprintf('Collection<%s>', $this->itemSchema->getTitle());
+    }
+
+    public function getDescription(): string
+    {
+        return sprintf('Collection of %s', $this->itemSchema->getDescription());
     }
 
     protected function getUniqueItems(): ?bool
@@ -50,7 +55,7 @@ abstract class CollectionSchema extends JsonSchema
         return null;
     }
 
-    protected function getSchema(): array
+    public function getSchema(): array
     {
         $schema = [
             'type' => 'array',
@@ -70,5 +75,25 @@ abstract class CollectionSchema extends JsonSchema
         }
 
         return $schema;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function jsonSerialize(): array
+    {
+        $schema = $this->getSchema();
+
+        /**
+         * @var array<string, mixed>&array{title: string, description: string, examples: array<T>}
+         */
+        return array_merge(
+            $schema,
+            [
+                'title' => $this->getTitle(),
+                'description' => $this->getDescription(),
+                'examples' => [...$this->getExamples()],
+            ],
+        );
     }
 }
