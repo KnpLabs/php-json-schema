@@ -5,13 +5,14 @@ declare(strict_types=1);
 namespace Knp\JsonSchema;
 
 /**
- * @template T of array<string, mixed>
- * @extends JsonSchema<T>
+ * @template T
+ *
+ * @implements JsonSchemaInterface<T>
  */
 abstract class ObjectSchema implements JsonSchemaInterface
 {
     /**
-     * @var array<string, JsonSchema<mixed>>
+     * @var array<string, JsonSchemaInterface<mixed>>
      */
     private array $properties = [];
 
@@ -44,11 +45,11 @@ abstract class ObjectSchema implements JsonSchemaInterface
     }
 
     /**
-     * @template S
+     * @psalm-template S
      *
-     * @param JsonSchema<S> $schema
+     * @psalm-param JsonSchemaInterface<S> $schema
      */
-    protected function addProperty(string $name, JsonSchema $schema, bool $required = true): void
+    protected function addProperty(string $name, JsonSchemaInterface $schema, bool $required = true): void
     {
         $this->properties[$name] = $schema;
 

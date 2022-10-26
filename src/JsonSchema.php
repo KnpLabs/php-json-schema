@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Knp\JsonSchema;
 
+use Knp\JsonSchema\Validator\Errors;
+
 /**
  * @template T of mixed
  *
@@ -116,7 +118,7 @@ class JsonSchema implements JsonSchemaInterface
      *
      * @return array<string, mixed>
      */
-    protected static function constant($value): array
+    public static function constant($value): array
     {
         return [
             'const' => $value,
@@ -126,7 +128,7 @@ class JsonSchema implements JsonSchemaInterface
     /**
      * @return array<string, mixed>
      */
-    protected static function null(): array
+    public static function null(): array
     {
         return [
             'type' => 'null',
@@ -136,7 +138,7 @@ class JsonSchema implements JsonSchemaInterface
     /**
      * @return array<string, mixed>
      */
-    protected static function text(): array
+    public static function text(): array
     {
         return [
             'type' => 'string',
@@ -147,7 +149,7 @@ class JsonSchema implements JsonSchemaInterface
     /**
      * @return array<string, mixed>
      */
-    protected static function boolean(): array
+    public static function boolean(): array
     {
         return [
             'type' => 'boolean',
@@ -157,7 +159,7 @@ class JsonSchema implements JsonSchemaInterface
     /**
      * @return array<string, mixed>
      */
-    protected static function string(?string $format = null): array
+    public static function string(?string $format = null): array
     {
         $result = [
             ...self::text(),
@@ -174,7 +176,7 @@ class JsonSchema implements JsonSchemaInterface
     /**
      * @return array<string, mixed>
      */
-    protected static function integer(): array
+    public static function integer(): array
     {
         return [
             'type' => 'integer',
@@ -184,7 +186,7 @@ class JsonSchema implements JsonSchemaInterface
     /**
      * @return array<string, mixed>
      */
-    protected static function number(): array
+    public static function number(): array
     {
         return [
             'type' => 'number',
@@ -194,7 +196,7 @@ class JsonSchema implements JsonSchemaInterface
     /**
      * @return array<string, mixed>
      */
-    protected static function date(): array
+    public static function date(): array
     {
         return [
             'type' => 'string',
@@ -205,7 +207,7 @@ class JsonSchema implements JsonSchemaInterface
     /**
      * @return array<string, mixed>
      */
-    protected static function positiveInteger(): array
+    public static function positiveInteger(): array
     {
         return [
             ...self::integer(),
@@ -218,7 +220,7 @@ class JsonSchema implements JsonSchemaInterface
      *
      * @return array{oneOf: array<array<string, mixed>>}
      */
-    protected static function oneOf(...$schemas): array
+    public static function oneOf(...$schemas): array
     {
         return [
             'oneOf' => $schemas,

@@ -5,9 +5,10 @@ declare(strict_types=1);
 namespace Knp\JsonSchema;
 
 use JsonSerializable;
+use Knp\JsonSchema\Validator\Errors;
 
 /**
- * @template T of mixed
+ * @template T
  */
 interface JsonSchemaInterface extends JsonSerializable
 {

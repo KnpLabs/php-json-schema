@@ -7,16 +7,16 @@ namespace Knp\JsonSchema;
 /**
  * @template I
  *
- * @phpstan-type CollectionSchemaData array<I>
+ * @type CollectionSchemaData array<I>
  *
- * @extends JsonSchema<CollectionSchemaData>
+ * @implements JsonSchemaInterface<CollectionSchemaData>
  */
 abstract class CollectionSchema implements JsonSchemaInterface
 {
     /**
-     * @param JsonSchema<I> $itemSchema
+     * @psalm-param JsonSchemaInterface<I> $itemSchema
      */
-    public function __construct(private JsonSchema $itemSchema)
+    public function __construct(private JsonSchemaInterface $itemSchema)
     {
     }
 

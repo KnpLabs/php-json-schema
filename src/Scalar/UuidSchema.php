@@ -5,11 +5,12 @@ declare(strict_types=1);
 namespace Knp\JsonSchema\Scalar;
 
 use Knp\JsonSchema\JsonSchema;
+use Knp\JsonSchema\JsonSchemaInterface;
 
 /**
- * @extends JsonSchema<string>
+ * @implements JsonSchemaInterface<string>
  */
-final class UuidSchema extends JsonSchema
+final class UuidSchema implements JsonSchemaInterface
 {
     private const PATTERN = '^[0-9a-f]{8}(-[0-9a-f]{4}){3}-[0-9a-f]{12}$';
 
@@ -37,12 +38,32 @@ final class UuidSchema extends JsonSchema
     public function getSchema(): array
     {
         return array_merge(
-            self::string(),
+            JsonSchema::string(),
             [
                 'pattern' => self::PATTERN,
                 'minLength' => 36,
                 'maxLength' => 36,
             ]
+        );
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function jsonSerialize(): array
+    {
+        $schema = $this->getSchema();
+
+        /**
+         * @var array<string, mixed>&array{title: string, description: string, examples: array<T>}
+         */
+        return array_merge(
+            $schema,
+            [
+                'title' => $this->getTitle(),
+                'description' => $this->getDescription(),
+                'examples' => [...$this->getExamples()],
+            ],
         );
     }
 }

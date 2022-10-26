@@ -6,7 +6,8 @@ namespace Knp\JsonSchema;
 
 /**
  * @template E
- * @extends JsonSchema<E>
+ *
+ * @implements JsonSchemaInterface<E>
  */
 abstract class EnumSchema implements JsonSchemaInterface
 {
