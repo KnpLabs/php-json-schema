@@ -2,10 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Knp\JsonSchema;
+namespace KnpLabs\JsonSchema;
 
 use JsonSerializable;
-use Knp\JsonSchema\Validator\Errors;
 
 /**
  * @template T
