@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Knp\JsonSchema\Scalar;
+namespace KnpLabs\JsonSchema\Scalar;
 
-use Knp\JsonSchema\JsonSchema;
-use Knp\JsonSchema\JsonSchemaInterface;
+use KnpLabs\JsonSchema\JsonSchema;
+use KnpLabs\JsonSchema\JsonSchemaInterface;
 
 /**
  * @implements JsonSchemaInterface<string>

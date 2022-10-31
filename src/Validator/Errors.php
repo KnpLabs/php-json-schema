@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Knp\JsonSchema\Validator;
+namespace KnpLabs\JsonSchema\Validator;
 
 use ArrayIterator;
 use Countable;

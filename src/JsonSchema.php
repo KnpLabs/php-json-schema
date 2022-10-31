@@ -2,9 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Knp\JsonSchema;
-
-use Knp\JsonSchema\Validator\Errors;
+namespace KnpLabs\JsonSchema;
 
 /**
  * @template T of mixed

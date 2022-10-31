@@ -7,23 +7,23 @@ A PHP implementation of [JSON Schema](http://json-schema.org/). This library all
 Install the latest version with
 
 ```bash
-$ composer require Knp/php-json-schema
+$ composer require knplabs/php-json-schema
 ```
 
 # Basic Usage
 
-A JsonSchema must implements `Knp\JsonSchema\JsonSchemaInterface` (which is basically an alias for `JsonSerializable`).
+A JsonSchema must implements `KnpLabs\JsonSchema\JsonSchemaInterface` (which also extends `JsonSerializable`).
 
 ## Default JsonSchema
 
-There is already a default implementation of `JsonSchemaInterface` called `Knp\JsonSchema\JsonSchema` which is an abstract class. This class provides some static methods to create some common JSON Schema scalars or objects.
+There is already a default implementation of `JsonSchemaInterface` called `KnpLabs\JsonSchema\JsonSchema` which is an abstract class. This class provides some static methods to create some common JSON Schema scalars or objects.
 
 ## Scalars
 
 ### `JsonSchema::string()`
 
 ```php
-use Knp\JsonSchema\JsonSchema;
+use KnpLabs\JsonSchema\JsonSchema;
 
 $schema = JsonSchema::create(
     'firstName',                       // The name of the property
@@ -36,7 +36,7 @@ $schema = JsonSchema::create(
 ### `JsonSchema::text()`
 
 ```php
-use Knp\JsonSchema\JsonSchema;
+use KnpLabs\JsonSchema\JsonSchema;
 
 $schema = JsonSchema::create(
     'content',                    // The name of the property
@@ -49,7 +49,7 @@ $schema = JsonSchema::create(
 ### `JsonSchema::integer()`
 
 ```php
-use Knp\JsonSchema\JsonSchema;
+use KnpLabs\JsonSchema\JsonSchema;
 
 $schema = JsonSchema::create(
     'age',                            // The name of the property
@@ -62,7 +62,7 @@ $schema = JsonSchema::create(
 ### `JsonSchema::positiveInteger()`
 
 ```php
-use Knp\JsonSchema\JsonSchema;
+use KnpLabs\JsonSchema\JsonSchema;
 
 $schema = JsonSchema::create(
     'age',                            // The name of the property
@@ -75,7 +75,7 @@ $schema = JsonSchema::create(
 ### `JsonSchema::number()`
 
 ```php
-use Knp\JsonSchema\JsonSchema;
+use KnpLabs\JsonSchema\JsonSchema;
 
 $schema = JsonSchema::create(
     'price',                // The name of the property
@@ -88,7 +88,7 @@ $schema = JsonSchema::create(
 ### `JsonSchema::boolean()`
 
 ```php
-use Knp\JsonSchema\JsonSchema;
+use KnpLabs\JsonSchema\JsonSchema;
 
 $schema = JsonSchema::create(
     'isAdult',                      // The name of the property
@@ -101,7 +101,7 @@ $schema = JsonSchema::create(
 ### `JsonSchema::date()`
 
 ```php
-use Knp\JsonSchema\JsonSchema;
+use KnpLabs\JsonSchema\JsonSchema;
 
 $schema = JsonSchema::create(
     'createdAt',                    // The name of the property
@@ -114,14 +114,14 @@ $schema = JsonSchema::create(
 ## Enum
 
 Enum is a special type of scalar which is a list of possible values.
-They can be created by extending the `Knp\JsonSchema\EnumSchema`:
+They can be created by extending the `KnpLabs\JsonSchema\EnumSchema`:
 
 ```php
 <?php
 
 namespace Acme;
 
-use Knp\JsonSchema\EnumSchema;
+use KnpLabs\JsonSchema\EnumSchema;
 
 class RoleEnum extends EnumSchema
 {
@@ -148,15 +148,22 @@ class RoleEnum extends EnumSchema
 
 ## Objects
 
-You can create objects schema by extending the `Knp\JsonSchema\ObjectSchema` class:
+You can create objects schema by extending the `KnpLabs\JsonSchema\ObjectSchema` class:
 
 ```php
 <?php
 
 namespace Acme;
 
-use Knp\JsonSchema\ObjectSchema;
+use KnpLabs\JsonSchema\ObjectSchema;
 
+/**
+ * @extends ObjectSchema<array{
+ *   firstName: string,
+ *   lastName: string,
+ *   role: string,
+ * }>
+ */
 class PersonSchema extends ObjectSchema
 {
     public function __construct()
@@ -188,14 +195,14 @@ class PersonSchema extends ObjectSchema
 
 ## Collections
 
-You can create collections schema by extending the `Knp\JsonSchema\CollectionSchema` class:
+You can create collections schema by extending the `KnpLabs\JsonSchema\CollectionSchema` class:
 
 ```php
 <?php
 
 namespace Acme;
 
-use Knp\JsonSchema\CollectionSchema;
+use KnpLabs\JsonSchema\CollectionSchema;
 
 class PersonCollectionSchema extends CollectionSchema
 {
