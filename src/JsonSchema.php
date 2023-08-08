@@ -124,6 +124,19 @@ class JsonSchema implements JsonSchemaInterface
     }
 
     /**
+     * @param string $pattern a valid regex pattern
+     *
+     * @return array<string, mixed>
+     */
+    public static function pattern(string $pattern): array
+    {
+        return [
+            ...self::text(),
+            'pattern' => $pattern,
+        ];
+    }
+
+    /**
      * @return array<string, mixed>
      */
     public static function null(): array

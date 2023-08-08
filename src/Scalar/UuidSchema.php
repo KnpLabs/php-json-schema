@@ -38,9 +38,8 @@ final class UuidSchema implements JsonSchemaInterface
     public function getSchema(): array
     {
         return array_merge(
-            JsonSchema::string(),
+            JsonSchema::pattern(self::PATTERN),
             [
-                'pattern' => self::PATTERN,
                 'minLength' => 36,
                 'maxLength' => 36,
             ]
