@@ -6,8 +6,8 @@ namespace KnpLabs\JsonSchema;
 
 /**
  * @template I
- *
- * @type CollectionSchemaData array<I>
+ * @template T from JsonSchemaInterface
+ * @phpstan-type CollectionSchemaData array<I>
  *
  * @implements JsonSchemaInterface<CollectionSchemaData>
  */

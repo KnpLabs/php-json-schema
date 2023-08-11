@@ -11,6 +11,10 @@ namespace KnpLabs\JsonSchema;
  */
 class JsonSchema implements JsonSchemaInterface
 {
+    /**
+     * @param iterable<T> $examples
+     * @param array<string, mixed> $schema
+     */
     private function __construct(
         protected readonly string $title,
         protected readonly string $description,

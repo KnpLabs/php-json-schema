@@ -6,6 +6,7 @@ namespace KnpLabs\JsonSchema;
 
 /**
  * @template E
+ * @template T from JsonSchemaInterface
  *
  * @implements JsonSchemaInterface<E>
  */

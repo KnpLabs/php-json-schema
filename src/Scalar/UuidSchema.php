@@ -8,6 +8,8 @@ use KnpLabs\JsonSchema\JsonSchema;
 use KnpLabs\JsonSchema\JsonSchemaInterface;
 
 /**
+ * @template T from JsonSchemaInterface
+ *
  * @implements JsonSchemaInterface<string>
  */
 final class UuidSchema implements JsonSchemaInterface
