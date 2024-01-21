@@ -7,7 +7,7 @@ A PHP implementation of [JSON Schema](http://json-schema.org/). This library all
 Install the latest version with
 
 ```bash
-$ composer require knplabs/php-json-schema
+composer require knplabs/php-json-schema
 ```
 
 # Basic Usage
